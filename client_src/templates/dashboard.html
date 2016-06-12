@@ -29,8 +29,6 @@
 
         </div>
 
-        <br/>
-
         <div class="category-list-container  md-whiteframe-3dp">
 
             <header layout="row" layout-align="space-between center">
@@ -47,6 +45,25 @@
 
                 <div ng-if="DashCtrl.categories.length === 0">
                     No categories added.
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="graph-container md-whiteframe-3dp">
+
+            <header layout="row" layout-align="space-between center">
+                <div><h3>Graphs</h3></div>
+            </header>
+
+            <div class="content" layout="row">
+
+                <div class="user-expenses">
+                    <canvas class="chart chart-pie" chart-data="DashCtrl.userChartData" chart-labels="DashCtrl.userChartLabels"></canvas>
+                </div>
+
+                <div class="family-expenses">
                 </div>
 
             </div>

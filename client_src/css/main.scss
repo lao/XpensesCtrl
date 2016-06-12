@@ -45,7 +45,8 @@ $light-gray-color: #F3F3F3;
     padding: 10px;
     width: 100%;
 
-    .entry-list-container, .category-list-container {
+    .entry-list-container, .category-list-container, .graph-container {
+      margin-bottom: 20px;
       header {
         padding: 0 10px;
         background-color: #808080;

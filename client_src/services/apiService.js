@@ -22,9 +22,22 @@
             entry: {
                 create: entryCreate,
                 remove: entryRemove,
-                getAll: entryGetAll
+                getAll: entryGetAll,
+                weekSum: entryWeekSum
             }
         };
+
+        /**
+         * Get the sum of values of all entries from user
+         *
+         * @returns {Promise}
+         */
+        function entryWeekSum(){
+            return $http({
+                method: 'GET',
+                url: BASE_URL + '/entry/sum/user/week'
+            });
+        }
 
         /**
          *

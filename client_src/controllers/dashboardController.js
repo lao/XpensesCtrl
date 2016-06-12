@@ -12,6 +12,9 @@
 
         self.entries = [];
         self.categories = [];
+        self.userChartLabels = [];
+        self.userChartData = [];
+
         self.openEntryModal = function ($event) {
             $mdDialog.show({
                 targetEvent: $event,
@@ -24,9 +27,27 @@
             _getAllEntries();
             _getAllCategories();
             _loadListeners();
+            _getUserGraphData();
         })();
 
         /** private methods **/
+
+        function _getUserGraphData() {
+
+            self.userChartLabels = [];
+            self.userChartData = [];
+
+            ApiService.entry
+                .weekSum()
+                .then(function (result) {
+                    var chartData = result.data;
+                    chartData.forEach(function (data){
+                        self.userChartLabels.push(data.name || '_uncategorized_');
+                        self.userChartData.push(data.sum);
+                    });
+                });
+
+        }
 
         function _getAllEntries() {
             ApiService.entry

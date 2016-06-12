@@ -2,7 +2,9 @@
      ng-class="{'positive-value': entry.value > 0, 'negative-value': entry.value < 0}">
 
     <div>
-        <span class="name">{{entry.name}}</span> | <span class="category">{{entry.category.name || '_no category_'}}</span>
+        <span class="name">{{entry.name}}</span> |
+        <span class="category">{{entry.category.name || '_no category_'}}</span> |
+        <span>{{entry.date | date:'dd-MM-yyyy'}}</span>
     </div>
     <div>
         <span>{{entry.value | currency}}</span>

@@ -81,4 +81,29 @@ EntryCtrl.create = function (req, res) {
 
 };
 
+EntryCtrl.userWeekSum = function (req, res) {
+
+    //NOTE: Postgres weeks starts on mondays, adding 1 day to now to correct the problem
+    var selectSqlStr = 'SELECT "Categories".name, sum(value) ' +
+        '   FROM "Entries" ' +
+        '   LEFT JOIN "Categories" on "Categories".id = "Entries"."categoryId" ' +
+        '   WHERE "Entries"."userId" = :userId AND to_char(now() + interval \'1 day\', \'IYYY_IW\') = to_char( "Entries".date, \'IYYY_IW\') ' +
+        '   GROUP BY "Entries"."categoryId", "Categories".name';
+
+    models
+        .sequelize
+        .query(selectSqlStr, { type: models.sequelize.QueryTypes.SELECT, replacements: { userId: req.user.id } })
+        .then(function (result) {
+            res.send(result);
+        })
+        .catch(function (error) {
+            res.status(400).send(error);
+        });
+
+};
+
+EntryCtrl.reportByFamily = function () {
+
+};
+
 module.exports = EntryCtrl;

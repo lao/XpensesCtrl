@@ -15,6 +15,8 @@ function load(app) {
 
     //Get methods
     app.get('/entry', isAuthenticated, EntryCtrl.getAll);
+    //app.get('/entry/user/sum/:beginDate/:endDate', isAuthenticated, EntryCtrl.userWeekSum); //TODO: this
+    app.get('/entry/sum/user/week', isAuthenticated, EntryCtrl.userWeekSum);
     app.get('/category', isAuthenticated, CategoryCtrl.getAll);
 
     //Put Methods
