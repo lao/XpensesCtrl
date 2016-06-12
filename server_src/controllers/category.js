@@ -6,7 +6,7 @@ CategoryCtrl.getAll = function (req, res) {
 
     models
         .Category
-        .findAll()
+        .findAll({where:{userId: req.user.id}})
         .then(function (categories) {
             res.send(categories);
         })
