@@ -2,6 +2,7 @@
 
 var path = require('path'),
     EntryCtrl = require('./controllers/entry'),
+    CategoryCtrl = require('./controllers/category'),
     UserCtrl = require('./controllers/user');
 
 function load(app) {
@@ -14,12 +15,14 @@ function load(app) {
 
     //Get methods
     app.get('/entry', isAuthenticated, EntryCtrl.getAll);
+    app.get('/category', isAuthenticated, CategoryCtrl.getAll);
 
     //Put Methods
     //app.put('/entry/:id', isAuthenticated, EntryCtrl.update); //TODO: this
 
     //Delete Methods
     app.delete('/entry/:id', isAuthenticated, EntryCtrl.remove);
+    app.delete('/category/:id', isAuthenticated, CategoryCtrl.remove);
 
     app.get('/', function (req, res) {
         res.sendFile(path.join(global.PUBLIC_PATH, 'app', 'index.html'));

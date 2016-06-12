@@ -13,33 +13,48 @@
 
         return {
             user: {
-                /**
-                 *  Create new user - signup
-                 *
-                 * @param data
-                 * @returns {Promise}
-                 */
                 create: userCreate
             },
+            category: {
+                getAll: categoryGetAll,
+                remove: categoryRemove
+            },
             entry: {
-                /**
-                 * Create new entry
-                 *
-                 * @param data
-                 * @returns {Promise}
-                 */
                 create: entryCreate,
-                /**
-                 * Delete entry by id
-                 *
-                 * @param data
-                 * @returns {Promise}
-                 */
                 remove: entryRemove,
                 getAll: entryGetAll
             }
         };
 
+        /**
+         *
+         *
+         * @returns {Promise}
+         */
+        function categoryRemove(id) {
+            return $http({
+                method: 'DELETE',
+                url: BASE_URL + '/category/' + id
+            });
+        }
+
+        /**
+         * Get all user categories
+         *
+         * @returns {Promise}
+         */
+        function categoryGetAll() {
+            return $http({
+                method: 'GET',
+                url: BASE_URL + '/category'
+            });
+        }
+
+        /**
+         * Get all user entries
+         *
+         * @returns {Promise}
+         */
         function entryGetAll() {
             return $http({
                 method: 'GET',
@@ -47,6 +62,12 @@
             });
         }
 
+        /**
+         * Delete entry by id
+         *
+         * @param id
+         * @returns {Promise}
+         */
         function entryRemove(id) {
             return $http({
                 method: 'DELETE',
@@ -54,6 +75,12 @@
             });
         }
 
+        /**
+         * Create new entry
+         *
+         * @param data
+         * @returns {Promise}
+         */
         function entryCreate(data) {
             return $http({
                 method: 'POST',
@@ -62,6 +89,12 @@
             });
         }
 
+        /**
+         *  Create new user - signup
+         *
+         * @param data
+         * @returns {Promise}
+         */
         function userCreate(data) {
             return $http({
                 method: 'POST',

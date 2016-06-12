@@ -56,7 +56,7 @@ EntryCtrl.create = function (req, res) {
 
     models
         .Category
-        .findOrCreate({ where: { name: req.body.categoryname } })
+        .findOrCreate({ where: { name: req.body.categoryname, userId: req.user.id } })
         .then(function (categoryInstance) {
 
             categoryInstance = categoryInstance[0];

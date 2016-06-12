@@ -40,6 +40,7 @@ Object.keys(models).forEach(function (modelName) {
 //Creating all the tables.
 // Personal note: I prefere creating all the tables manually, but in this case, the sync will do the job
 sequelize
+    //.sync({ force: true })//TODO: Sync with force will delete and recreate all tables. REMOVE AFTER.
     .sync()
     .error(function (error) {
         console.error(error);

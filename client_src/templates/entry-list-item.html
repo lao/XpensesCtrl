@@ -1,7 +1,7 @@
 <div class="entry-list-item" layout="row" layout-align="space-between center"
      ng-class="{'positive-value': entry.value > 0, 'negative-value': entry.value < 0}">
 
-    <div class="name">{{entry.name}} - {{entry.category.name}}</div>
+    <div class="name">{{entry.name}} - {{entry.category.name || '_no category_'}}</div>
     <div>
         <span>{{entry.value | currency}}</span>
         <md-button ng-click="delete($event)">

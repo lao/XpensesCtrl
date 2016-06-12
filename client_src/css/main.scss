@@ -31,14 +31,18 @@ $light-gray-color: #F3F3F3;
 }
 
 .dashboard-container {
+
   width: 100%;
+
   .lists-container {
+
     padding: 10px;
     width: 100%;
+
     .entry-list-container, .category-list-container {
       header {
         padding: 0 10px;
-        background-color: gray;
+        background-color: #808080;
         .md-button {
           min-width: 40px;
           max-width: 40px;
@@ -51,6 +55,12 @@ $light-gray-color: #F3F3F3;
           text-transform: none;
         }
       }
+    }
+
+    .category-item {
+      height: 48px;
+      line-height: 48px;
+      padding-left: 10px;
     }
   }
 
@@ -105,7 +115,7 @@ $light-gray-color: #F3F3F3;
     background-color: #FFC8C8;
   }
   &.negative-value {
-    background-color: #c8ffcb;
+    background-color: #C8FFCB;
   }
 
   .md-button {

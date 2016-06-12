@@ -11,7 +11,7 @@
         var self = this;
 
         self.entries = [];
-
+        self.categories = [];
         self.openEntryModal = function ($event) {
             $mdDialog.show({
                 targetEvent: $event,
@@ -19,27 +19,36 @@
             });
         };
 
-        self.getAllEntries = function () {
+        //Self calling function for controller loading (help readability)
+        (function controllerLoad() {
+            _getAllEntries();
+            _getAllCategories();
+            _loadListeners();
+        })();
+
+        /** private methods **/
+
+        function _getAllEntries() {
             ApiService.entry
                 .getAll()
                 .then(function (result) {
                     self.entries = result.data;
                 });
-        };
+        }
+
+        function _getAllCategories() {
+            ApiService.category
+                .getAll()
+                .then(function (result) {
+                    self.categories = result.data;
+                });
+        }
 
         function _loadListeners() {
             $rootScope.$on(EVENTS.ENTRY_LIST_UPDATE, function () {
-                self.getAllEntries();
+                _getAllEntries();
             });
         }
-
-        (function controllerLoad() {
-
-            self.getAllEntries();
-
-            _loadListeners();
-
-        })();
 
     }
 

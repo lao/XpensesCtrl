@@ -1,8 +1,8 @@
 <div class="dashboard-container" layout="column" layout-align="center center">
 
-    <div class="lists-container" layout="row" layout="space-between center">
+    <div class="lists-container">
 
-        <div class="entry-list-container md-whiteframe-3dp" flex="45">
+        <div class="entry-list-container md-whiteframe-3dp">
 
             <header layout="row" layout-align="space-between center">
                 <div><h3>Entries</h3></div>
@@ -29,11 +29,27 @@
 
         </div>
 
-        <div class="category-list-container  md-whiteframe-3dp" flex-offset="10" flex="45">
+        <br/>
+
+        <div class="category-list-container  md-whiteframe-3dp">
 
             <header layout="row" layout-align="space-between center">
                 <div><h3>Categories</h3></div>
             </header>
+
+            <div class="content">
+
+                <div ng-if="DashCtrl.categories.length > 0">
+                    <category-list-item category="category"
+                                        ng-repeat="category in DashCtrl.categories track by category.id">
+                    </category-list-item>
+                </div>
+
+                <div ng-if="DashCtrl.categories.length === 0">
+                    No categories added.
+                </div>
+
+            </div>
 
         </div>
 
