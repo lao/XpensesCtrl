@@ -30,7 +30,7 @@
                             return ApiService.entry.remove(scope.entry.id);
                         })
                         .then(function () {
-                            $rootScope.$emit(EVENTS.ENTRY_LIST_UPDATE);
+                            $rootScope.$emit(EVENTS.DASHBOARD_LISTS_UPDATE);
                         })
                         .catch(function () {
                             $mdToast.show($mdToast.simple().textContent('Couldn\'t remove entry.'));

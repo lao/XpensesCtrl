@@ -36,7 +36,7 @@
                     $mdDialog.hide()
                         .then(function () {
                             $mdToast.show($mdToast.simple().textContent('Entry created'));
-                            $rootScope.$emit(EVENTS.ENTRY_LIST_UPDATE);
+                            $rootScope.$emit(EVENTS.DASHBOARD_LISTS_UPDATE);
                         });
                 });
         };

@@ -30,7 +30,7 @@
                             return ApiService.category.remove(scope.category.id);
                         })
                         .then(function () {
-                            $rootScope.$emit(EVENTS.CATEGORY_LIST_UPDATE);
+                            $rootScope.$emit(EVENTS.DASHBOARD_LISTS_UPDATE);
                         })
                         .catch(function () {
                             $mdToast.show($mdToast.simple().textContent('Couldn\'t remove category.'));

@@ -45,8 +45,9 @@
         }
 
         function _loadListeners() {
-            $rootScope.$on(EVENTS.ENTRY_LIST_UPDATE, function () {
+            $rootScope.$on(EVENTS.DASHBOARD_LISTS_UPDATE, function () {
                 _getAllEntries();
+                _getAllCategories();
             });
         }
 

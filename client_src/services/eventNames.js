@@ -5,8 +5,7 @@
         .module('XpensesCtrlApp')
         .constant('EVENTS', {
             UNAUTHORIZED_REQUEST: 'UNAUTHORIZED_REQUEST',
-            ENTRY_LIST_UPDATE: 'ENTRY_LIST_UPDATE',
-            CATEGORY_LIST_UPDATE: 'CATEGORY_LIST_UPDATE',
+            DASHBOARD_LISTS_UPDATE: 'DASHBOARD_LISTS_UPDATE',
             UNKNOWN_ERROR: 'UNKNOWN_ERROR'
         });
 
