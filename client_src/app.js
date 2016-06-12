@@ -1,11 +1,55 @@
-(function (){
+(function () {
 
     'use strict';
 
-    var XpensesCtrlApp = angular
-        .module('XpensesCtrlApp', ['ngMaterial'])
-        .run(function ($rootScope){
-            $rootScope.test = 'oiiii';
+    angular
+        .module('XpensesCtrlApp', ['ngMaterial', 'ngRoute', 'satellizer'])
+        //Annotations will be added by gulp-ng-annotate
+        .config(function ($routeProvider, $locationProvider, $authProvider) {
+
+            $routeProvider
+                .when('/', {
+                    templateUrl: 'templates/login.html',
+                    controller: 'LoginController',
+                    controllerAs: 'LoginCtrl',
+                    resolve: { skipIfAuthenticated: skipIfAuthenticated }
+                })
+                .when('/signup', {
+                    templateUrl: 'templates/signup.html',
+                    controller: 'SignupCtrl',
+                    resolve: { skipIfAuthenticated: skipIfAuthenticated }
+                })
+                .when('/dashboard', {
+                    templateUrl: 'templates/dashboard.html',
+                    controller: 'DashboardCtrl',
+                    resolve: { loginRequired: loginRequired }
+                })
+                .otherwise({
+                    templateUrl: 'templates/default-error.html'
+                });
+
+            $authProvider.loginUrl = '/login';
+            $authProvider.signupUrl = '/signup';
+
+            function skipIfAuthenticated($location, $auth) {
+                if ($auth.isAuthenticated()) {
+                    $location.path('/');
+                }
+            }
+
+            function loginRequired($location, $auth) {
+                if (!$auth.isAuthenticated()) {
+                    $location.path('/login');
+                }
+            }
+
+        })
+        .run(function ($rootScope, $window) {
+
+            if ($window.localStorage.user) {
+                $rootScope.currentUser = JSON.parse($window.localStorage.user);
+            }
+
         });
 
 })();

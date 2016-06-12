@@ -1,3 +1,25 @@
-body {
-  background-color: red;
+@import 'normalize';
+
+$light-gray-color: #F3F3F3;
+
+#app-header {
+  background-color: #4C4C4C;
+  height: 60px;
+  line-height: 60px;
+  color: white;
+  font-size: 21px;
+  padding: 0 20px;
+}
+
+.card-container {
+
+  background-color: $light-gray-color;
+  margin: 50px auto;
+
+  &.login-container {
+    md-input-container {
+      width: 350px;
+    }
+  }
+
 }
