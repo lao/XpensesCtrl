@@ -26,6 +26,7 @@ gulp.task('angular', function() {
         .src([
             'client_src/app.js',
             'client_src/controllers/*.js',
+            'client_src/directives/*.js',
             'client_src/services/*.js'
         ])
         .pipe(concat('application.js'))

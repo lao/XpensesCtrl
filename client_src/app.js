@@ -16,12 +16,14 @@
                 })
                 .when('/signup', {
                     templateUrl: 'templates/signup.html',
-                    controller: 'SignupCtrl',
+                    controller: 'SignupController',
+                    controllerAs: 'SignupCtrl',
                     resolve: { skipIfAuthenticated: skipIfAuthenticated }
                 })
                 .when('/dashboard', {
                     templateUrl: 'templates/dashboard.html',
-                    controller: 'DashboardCtrl',
+                    controller: 'DashboardController',
+                    controllerAs: 'DashboardCtrl',
                     resolve: { loginRequired: loginRequired }
                 })
                 .otherwise({

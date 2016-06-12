@@ -6,7 +6,7 @@
         .module('XpensesCtrlApp')
         .controller('LoginController', LoginController);
 
-    function LoginController($auth, $location) {
+    function LoginController($auth, $location, $rootScope, $window) {
 
         var self = this;
 
@@ -19,6 +19,8 @@
                 .login({ username: self.user.username, password: self.user.password })
                 .then(function (response) {
                     $auth.setToken(response);
+                    $rootScope.currentUser = response.data.user;
+                    $window.localStorage.user = JSON.stringify(response.data.user);
                     $location.path('/dashboard');
                 })
                 .catch(function (response) {

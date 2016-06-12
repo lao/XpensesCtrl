@@ -9,7 +9,8 @@ var sequelize = new Sequelize('xpensesdb', 'xadmin', '246temp_password135', {
     host: 'localhost',
     dialect: 'postgresql',
     maxConcurrentQueries: 50,
-    pool: { maxConnections: 5, maxIddleTime: 30 }
+    pool: { maxConnections: 5, maxIddleTime: 30 },
+    logging: false
 });
 
 var models = {};

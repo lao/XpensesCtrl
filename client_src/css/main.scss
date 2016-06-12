@@ -22,4 +22,10 @@ $light-gray-color: #F3F3F3;
     }
   }
 
+  &.signup-container {
+    md-input-container {
+      width: 400px;
+    }
+  }
+
 }

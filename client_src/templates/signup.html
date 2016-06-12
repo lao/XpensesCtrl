@@ -7,31 +7,80 @@
     </md-card-title>
 
     <md-card-content layout="column" layout-align="center center">
-        <md-input-container>
-            <label>Username</label>
-            <input ng-model="user.username">
-        </md-input-container>
-        <md-input-container>
-            <label>Username</label>
-            <input ng-model="user.firstname">
-        </md-input-container>
-        <md-input-container>
-            <label>Username</label>
-            <input ng-model="user.familyname">
-        </md-input-container>
-        <md-input-container>
-            <label>Password</label>
-            <input ng-model="user.password" type="password">
-        </md-input-container>
-        <md-input-container>
-            <label>Repeat password</label>
-            <input ng-model="user.repeatPassword" type="password">
-        </md-input-container>
+
+        <form name="SignupForm" layout="column" layout-align="center center">
+
+            <md-input-container>
+
+                <label>Username</label>
+                <input name="username" ng-model="SignupCtrl.user.username" required>
+
+                <div ng-show="SignupForm.username.$invalid && SignupForm.username.$dirty"
+                     ng-messages="SignupForm.username.$error">
+                    <ng-message when="required">Username is required</ng-message>
+                </div>
+
+            </md-input-container>
+
+            <md-input-container>
+
+                <label>First name</label>
+                <input name="firstname" ng-model="SignupCtrl.user.firstname" required>
+
+                <div ng-show="SignupForm.firstname.$invalid && SignupForm.firstname.$dirty"
+                     ng-messages="SignupForm.firstname.$error">
+                    <ng-message when="required">First name is required</ng-message>
+                </div>
+
+            </md-input-container>
+
+            <md-input-container>
+
+                <label>Family name</label>
+                <input name="familyname" ng-model="SignupCtrl.user.familyname" required>
+
+                <div ng-show="SignupForm.familyname.$invalid && SignupForm.familyname.$dirty"
+                     ng-messages="SignupForm.familyname.$error">
+                    <ng-message when="required">Family name is required</ng-message>
+                </div>
+
+            </md-input-container>
+
+            <md-input-container>
+
+                <label>Password</label>
+                <input name="password" ng-model="SignupCtrl.user.password" type="password" required>
+
+                <div ng-show="SignupForm.password.$invalid && SignupForm.password.$dirty"
+                     ng-messages="SignupForm.password.$error">
+                    <ng-message when="required">Password is required</ng-message>
+                </div>
+
+            </md-input-container>
+
+            <md-input-container>
+
+                <label>Repeat password</label>
+                <input name="passwordConfirm"
+                       ng-model="SignupCtrl.user.repeatPassword"
+                       type="password"
+                       should-equal-to="SignupCtrl.user.password">
+
+                <div ng-show="SignupForm.passwordConfirm.$invalid && SignupForm.passwordConfirm.$dirty"
+                     ng-messages="SignupForm.passwordConfirm.$error">
+                    <ng-message when="shouldEqualTo">Password confirmation must be equal to password</ng-message>
+                </div>
+
+            </md-input-container>
+
+        </form>
+
     </md-card-content>
 
     <md-card-actions layout="row" layout-align="end center">
-        <md-button>cancel</md-button>
-        <md-button class="md-primary">Signup</md-button>
+        <md-button href="#/">cancel</md-button>
+        <md-button class="md-primary" ng-click="SignupCtrl.signup()" ng-disabled="SignupForm.$invalid">Signup
+        </md-button>
     </md-card-actions>
 
 </md-card>

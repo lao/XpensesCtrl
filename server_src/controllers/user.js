@@ -22,6 +22,9 @@ UserCtrl.create = function (req, res) {
         .findOrCreate({ where: { name: req.body.familyname } })
         .then(function (familyInstance) {
 
+            //findOrCreate sequelize method return results in an array
+            familyInstance = familyInstance[0];
+
             var userData = {
                 firstname: req.body.firstname,
                 username: req.body.username,
@@ -54,11 +57,9 @@ UserCtrl.login = function (req, res) {
 
     var loginErrorMsg = 'Invalid email or password';
 
-    models.User.create({ firstname: 'lucas', username: 'test', password: 'teste' })
-        .then(function () {
-            return models
-                .User.find({ username: req.body.username });
-        })
+    return models
+        .User
+        .find({ username: req.body.username })
         .then(function (user) {
             if (!user) {
                 return res.status(401).send({ msg: loginErrorMsg });
@@ -68,7 +69,7 @@ UserCtrl.login = function (req, res) {
                     if (!isMatch) {
                         return res.status(401).send({ msg: loginErrorMsg });
                     }
-                    res.send({ token: generateToken(user), user: user.toJSON() });
+                    res.send({ token: generateToken(user), user: user });
                 })
         });
 
