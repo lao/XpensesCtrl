@@ -29,3 +29,43 @@ $light-gray-color: #F3F3F3;
   }
 
 }
+
+.entry-dialog {
+  width: 600px;
+  md-dialog-content {
+    padding: 20px;
+  }
+  .entry-name-container {
+    md-input-container {
+      width: 460px;
+    }
+  }
+  .entry-value-container {
+    &.positive-value {
+      input {
+        color: darkgreen;
+      }
+      .md-button {
+        background-color: #E3FFCA;
+      }
+      md-icon {
+        color: darkgreen;
+      }
+    }
+    &.negative-value {
+      input {
+        color: darkred;
+      }
+      .md-button {
+        background-color: #FFCACA;
+      }
+      md-icon {
+        color: darkred;
+      }
+    }
+  }
+  md-input-container {
+    width: 400px;
+  }
+
+}

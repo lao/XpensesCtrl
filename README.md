@@ -16,3 +16,4 @@
 9 - create service that gets validation and know errors and shows on the toast message
 10 - Create Async validation for username
 11 - Check similar family names and show user similar family names to avoid creation of several family names or misstyping
+12 - Category selection on entry creation

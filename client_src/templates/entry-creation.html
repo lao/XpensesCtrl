@@ -1,0 +1,104 @@
+<md-dialog class="entry-dialog" aria-label="Create entry" ng-controller="EntryCreationController as entryCtrl">
+
+    <md-toolbar>
+        <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+            <h2>Entry creation</h2>
+            <md-button class="md-icon-button" ng-click="entryCtrl.closeDialog()">
+                <md-icon md-svg-src="img/close.svg" aria-label="Close entry creation"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+
+        <div layout="column" layout-align="center center">
+            <form name="entryCreationForm">
+
+                <div class="entry-name-container">
+                    <md-input-container>
+
+                        <label>Entry name</label>
+                        <input name="entryname" ng-model="entryCtrl.entry.name" required>
+
+
+                        <div ng-show="entryCreationForm.entryname.$invalid && entryCreationForm.entryname.$dirty"
+                             ng-messages="entryCreationForm.entryname.$error">
+                            <ng-message when="required">Entry name is required</ng-message>
+                        </div>
+
+                    </md-input-container>
+                </div>
+
+
+                <div class="entry-value-container"
+                     ng-class="{'positive-value': entryCtrl.entry.sign > 0, 'negative-value': entryCtrl.entry.sign < 0}">
+
+                    <md-button class="md-icon-button"
+                               ng-click="entryCtrl.changeSign()"
+                               aria-label="Change entry sign">
+
+                        <md-icon ng-show="entryCtrl.entry.sign < 0" md-svg-src="img/minus.svg"></md-icon>
+                        <md-icon ng-hide="entryCtrl.entry.sign < 0" md-svg-src="img/add.svg"></md-icon>
+                        <md-tooltip>
+                            Click here to change the entry's sign
+                        </md-tooltip>
+                    </md-button>
+
+                    <md-input-container>
+
+                        <label>Entry value</label>
+
+                        <input name="entryvalue"
+                               type="number"
+                               ng-model="entryCtrl.entry.value"
+                               required
+                               ng-keyup="entryCtrl.checkSign()">
+
+                        <div ng-show="entryCreationForm.entryvalue.$invalid && entryCreationForm.entryvalue.$dirty"
+                             ng-messages="entryCreationForm.entryvalue.$error">
+                            <ng-message when="required">Entry value is required</ng-message>
+                        </div>
+
+                    </md-input-container>
+
+                </div>
+
+                <div class="entry-name-container">
+                    <md-input-container>
+
+                        <label>Category name</label>
+                        <input name="categoryname" ng-model="entryCtrl.entry.categoryname" required>
+
+
+                        <div ng-show="entryCreationForm.categoryname.$invalid && entryCreationForm.categoryname.$dirty"
+                             ng-messages="entryCreationForm.categoryname.$error">
+                            <ng-message when="required">Category name is required</ng-message>
+                        </div>
+
+                    </md-input-container>
+                </div>
+
+                <div>
+                    <md-datepicker name="entrydate" ng-model="entryCtrl.entry.date"
+                                   md-placeholder="Enter date"
+                                   required></md-datepicker>
+                    <div ng-show="entryCreationForm.entrydate.$invalid && entryCreationForm.entrydate.$dirty"
+                         ng-messages="entryCreationForm.entrydate.$error">
+                        <div ng-message="required">Entry date is required</div>
+                    </div>
+                </div>
+
+
+            </form>
+        </div>
+
+
+    </md-dialog-content>
+
+    <md-dialog-actions>
+        <md-button ng-click="entryCtrl.save()" class="md-primary">
+            Save
+        </md-button>
+    </md-dialog-actions>
+
+</md-dialog>,

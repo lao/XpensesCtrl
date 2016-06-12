@@ -4,33 +4,50 @@
 
     angular
         .module('XpensesCtrlApp')
-        .service('ApiService', ApiService);
+        .factory('ApiService', ApiService);
 
     //-
     var BASE_URL = 'http://localhost:3000';
 
     function ApiService($http, $mdToast, $log) {
 
-        var self = this;
-
-        self.user = {
-            create: userCreate
+        return {
+            user: {
+                create: userCreate
+            },
+            entry: {
+                create: entryCreate
+            }
         };
 
-        function userCreate(data) {
+        function entryCreate(data) {
             return $http({
                 method: 'POST',
-                url: BASE_URL + '/create',
+                url: BASE_URL + '/entry',
                 data: data
             })
                 .catch(function (error) {
                     $log.error(error);
-                    showErrorToast();
+                    _showErrorToast();
                     throw error;
                 });
         }
 
-        function showErrorToast(text) {
+        function userCreate(data) {
+            return $http({
+                method: 'POST',
+                url: BASE_URL + '/user',
+                data: data
+            })
+                .catch(function (error) {
+                    $log.error(error);
+                    _showErrorToast();
+                    throw error;
+                });
+        }
+
+        //TODO: Create default error handler function on $http provider
+        function _showErrorToast(text) {
             text = text || 'Unknow Error';
             $mdToast.show($mdToast.simple().textContent(text));
         }

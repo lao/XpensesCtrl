@@ -23,7 +23,7 @@
                 .when('/dashboard', {
                     templateUrl: 'templates/dashboard.html',
                     controller: 'DashboardController',
-                    controllerAs: 'DashboardCtrl',
+                    controllerAs: 'DashCtrl',
                     resolve: { loginRequired: loginRequired }
                 })
                 .otherwise({
@@ -35,13 +35,13 @@
 
             function skipIfAuthenticated($location, $auth) {
                 if ($auth.isAuthenticated()) {
-                    $location.path('/');
+                    $location.path('/dashboard');
                 }
             }
 
             function loginRequired($location, $auth) {
                 if (!$auth.isAuthenticated()) {
-                    $location.path('/login');
+                    $location.path('/');
                 }
             }
 
