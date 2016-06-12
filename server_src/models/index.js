@@ -31,6 +31,9 @@ Object.keys(models).forEach(function (modelName) {
     if ('associate' in models[modelName]) {
         models[modelName].associate(models);
     }
+    if ('setHooks' in models[modelName]) {
+        models[modelName].setHooks(models);
+    }
 });
 
 //Creating all the tables.
@@ -47,16 +50,16 @@ sequelize
  * @name sequelize
  * @type {object}
  */
-module.exports.sequelize = sequelize;
+models.sequelize = sequelize;
 /**
  * Sequelize lib Object, used to access Promise (bluebird Promise class), queryTypes, Validator, etc..
  * @name Sequelize
  * @type {object}
  */
-module.exports.Sequelize = Sequelize;
+models.Sequelize = Sequelize;
 /**
  * Object with all the aplication models.
  * @name models
  * @type {object}
  */
-module.exports.models = models;
+module.exports = models;
