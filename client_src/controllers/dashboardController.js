@@ -6,14 +6,15 @@
         .module('XpensesCtrlApp')
         .controller('DashboardController', DashboardController);
 
-    function DashboardController($mdDialog, ApiService, $scope, $rootScope, EVENTS) {
+    function DashboardController($mdDialog, ApiService, $rootScope, EVENTS) {
 
         var self = this;
 
         self.entries = [];
         self.categories = [];
-        self.userChartLabels = [];
-        self.userChartData = [];
+        self.userWeekReport = [];
+        self.familyWeekReport = [];
+        self.currentWeekDays = [];
 
         self.openEntryModal = function ($event) {
             $mdDialog.show({
@@ -28,23 +29,73 @@
             _getAllCategories();
             _loadListeners();
             _getUserGraphData();
+            _getFamilyGraphData();
+            _populateWeekDays();
         })();
 
         /** private methods **/
 
-        function _getUserGraphData() {
+        /**
+         * Getting the list of days in current week for report build
+         */
+        function _populateWeekDays() {
+            var beginOfWeek = moment().startOf('week');
+            for (var i = 0; i < 7; i++) {
+                self.currentWeekDays.push(moment(beginOfWeek));
+                beginOfWeek.add(1, 'day');
+            }
+        }
 
-            self.userChartLabels = [];
-            self.userChartData = [];
+        function _getFamilyGraphData() {
+
+            self.familyWeekReport = [];
 
             ApiService.entry
-                .weekSum()
+                .familyWeekSum()
                 .then(function (result) {
-                    var chartData = result.data;
-                    chartData.forEach(function (data){
-                        self.userChartLabels.push(data.name || '_uncategorized_');
-                        self.userChartData.push(data.sum);
+
+                    var data = result.data;
+
+                    //iterating over current week days to build full week list even if there wasn't entries on a day
+                    self.currentWeekDays.forEach(function (momentDay) {
+
+                        // should have only one row per day
+                        var dataEntry = _.where(data, { date_part: parseInt(momentDay.date()) })[0];
+                        if (dataEntry) {
+                            self.familyWeekReport.push(dataEntry);
+                        } else {
+                            self.familyWeekReport.push({ date_part: momentDay.date(), sum: 0 });
+                        }
+
                     });
+
+                });
+
+        }
+
+        function _getUserGraphData() {
+
+            self.userWeekReport = [];
+
+            ApiService.entry
+                .userWeekSum()
+                .then(function (result) {
+
+                    var data = result.data;
+
+                    //iterating over current week days to build full week list even if there wasn't entries on a day
+                    self.currentWeekDays.forEach(function (momentDay) {
+
+                        // should have only one row per day
+                        var dataEntry = _.where(data, { date_part: parseInt(momentDay.date()) })[0];
+                        if (dataEntry) {
+                            self.userWeekReport.push(dataEntry);
+                        } else {
+                            self.userWeekReport.push({ date_part: momentDay.date(), sum: 0 });
+                        }
+
+                    });
+
                 });
 
         }
@@ -67,8 +118,11 @@
 
         function _loadListeners() {
             $rootScope.$on(EVENTS.DASHBOARD_LISTS_UPDATE, function () {
+                //Reloading everything, even though it can be heavy
                 _getAllEntries();
                 _getAllCategories();
+                _getUserGraphData();
+                _getFamilyGraphData();
             });
         }
 

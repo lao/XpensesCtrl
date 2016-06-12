@@ -84,15 +84,38 @@ EntryCtrl.create = function (req, res) {
 EntryCtrl.userWeekSum = function (req, res) {
 
     //NOTE: Postgres weeks starts on mondays, adding 1 day to now to correct the problem
-    var selectSqlStr = 'SELECT "Categories".name, sum(value) ' +
+    var selectSqlStr = 'SELECT sum(value), date_part(\'day\', "Entries".date)' +
         '   FROM "Entries" ' +
-        '   LEFT JOIN "Categories" on "Categories".id = "Entries"."categoryId" ' +
-        '   WHERE "Entries"."userId" = :userId AND to_char(now() + interval \'1 day\', \'IYYY_IW\') = to_char( "Entries".date, \'IYYY_IW\') ' +
-        '   GROUP BY "Entries"."categoryId", "Categories".name';
+        '   WHERE "Entries"."userId" = :userId AND ' +
+        '   to_char(now() + interval \'1 day\', \'IYYY_IW\') = to_char( "Entries".date, \'IYYY_IW\') ' +
+        '   GROUP BY date_part(\'day\', "Entries".date)';
 
     models
         .sequelize
         .query(selectSqlStr, { type: models.sequelize.QueryTypes.SELECT, replacements: { userId: req.user.id } })
+        .then(function (result) {
+            res.send(result);
+        })
+        .catch(function (error) {
+            res.status(400).send(error);
+        });
+
+};
+
+
+EntryCtrl.familyWeekSum = function (req, res) {
+
+    //NOTE: Postgres weeks starts on mondays, adding 1 day to now to correct the problem
+    var selectSqlStr = 'SELECT sum(value), date_part(\'day\', "Entries".date) ' +
+        '   FROM "Entries" ' +
+        '   LEFT JOIN "Users" on "Users".id = "Entries"."userId" ' +
+        '   LEFT JOIN "Families" on "Families".id = "Users"."familyId" ' +
+        '   WHERE "Users"."familyId" = :familyId AND to_char(now() + interval \'1 day\', \'IYYY_IW\') = to_char( "Entries".date, \'IYYY_IW\') ' +
+        '   GROUP BY date_part(\'day\', "Entries".date)';
+
+    models
+        .sequelize
+        .query(selectSqlStr, { type: models.sequelize.QueryTypes.SELECT, replacements: { familyId: req.user.familyId } })
         .then(function (result) {
             res.send(result);
         })

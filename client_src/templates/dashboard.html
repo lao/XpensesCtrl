@@ -57,13 +57,23 @@
                 <div><h3>Graphs</h3></div>
             </header>
 
-            <div class="content" layout="row">
+            <div class="content" layout="row" layout-align="space-between center">
 
                 <div class="user-expenses">
-                    <canvas class="chart chart-pie" chart-data="DashCtrl.userChartData" chart-labels="DashCtrl.userChartLabels"></canvas>
+
+                    <h3>User current week expenses</h3>
+
+                    <div ng-repeat="data in DashCtrl.userWeekReport">
+                        <span>Day: {{data.date_part}} | Value: {{data.sum | currency}}</span>
+                    </div>
+
                 </div>
 
                 <div class="family-expenses">
+                    <h3>Family week expenses</h3>
+                    <div ng-repeat="data in DashCtrl.familyWeekReport">
+                        <span>Day: {{data.date_part}} | Value: {{data.sum | currency}}</span>
+                    </div>
                 </div>
 
             </div>

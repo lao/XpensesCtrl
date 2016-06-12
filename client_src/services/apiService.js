@@ -23,16 +23,29 @@
                 create: entryCreate,
                 remove: entryRemove,
                 getAll: entryGetAll,
-                weekSum: entryWeekSum
+                userWeekSum: entryUserWeekSum,
+                familyWeekSum: entryFamilyWeekSum
             }
         };
+
+        /**
+         * Get the sum of values of all entries from user family
+         *
+         * @returns {Promise}
+         */
+        function entryFamilyWeekSum(){
+            return $http({
+                method: 'GET',
+                url: BASE_URL + '/entry/sum/family/week'
+            });
+        }
 
         /**
          * Get the sum of values of all entries from user
          *
          * @returns {Promise}
          */
-        function entryWeekSum(){
+        function entryUserWeekSum(){
             return $http({
                 method: 'GET',
                 url: BASE_URL + '/entry/sum/user/week'

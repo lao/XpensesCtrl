@@ -3,7 +3,7 @@
     'use strict';
 
     angular
-        .module('XpensesCtrlApp', ['ngMaterial', 'ngRoute', 'satellizer', 'chart.js'])
+        .module('XpensesCtrlApp', ['ngMaterial', 'ngRoute', 'satellizer'])
         //Annotations will be added by gulp-ng-annotate
         .config(function ($routeProvider, $locationProvider, $authProvider, $httpProvider) {
 
