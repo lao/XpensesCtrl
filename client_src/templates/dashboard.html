@@ -1,17 +1,45 @@
 <div class="dashboard-container" layout="column" layout-align="center center">
 
-    <div class="entry-list-container" flex="90">
-        <header>
-            <div class="title">Entries</div>
-            <md-button class="md-fab"
-                       aria-label="Add new entry"
-                    ng-click="DashCtrl.openEntryModal($event)">
-                <md-icon md-svg-src="img/add.svg"></md-icon>
-            </md-button>
-        </header>
+    <div class="lists-container" layout="row" layout="space-between center">
+
+        <div class="entry-list-container md-whiteframe-3dp" flex="45">
+
+            <header layout="row" layout-align="space-between center">
+                <div><h3>Entries</h3></div>
+                <md-button aria-label="Add new entry"
+                           ng-click="DashCtrl.openEntryModal($event)">
+                    <md-icon md-svg-src="img/add.svg"></md-icon>
+                </md-button>
+            </header>
+
+            <div class="content">
+
+                <div ng-if="DashCtrl.entries.length > 0">
+                    <entry-list-item entry="entry"
+                                     ng-repeat="entry in DashCtrl.entries track by entry.id">
+                    </entry-list-item>
+                </div>
+
+                <div ng-if="DashCtrl.entries.length === 0">
+                    No entries added.
+                    <md-button ng-click="DashCtrl.openEntryModal($event)">Please add one.</md-button>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="category-list-container  md-whiteframe-3dp" flex-offset="10" flex="45">
+
+            <header layout="row" layout-align="space-between center">
+                <div><h3>Categories</h3></div>
+            </header>
+
+        </div>
+
     </div>
 
-    <div class="graph" flex="90">
+    <div class="graph">
 
     </div>
 

@@ -39,10 +39,14 @@ app.use(function (req, res, next) {
     if (req.isAuthenticated()) {
         var payload = req.isAuthenticated();
         models.User
-            .findById(payload.sub)
+            .find({ where: { id: payload.sub } })
             .then(function (user) {
-                req.user = user;
-                next();
+                if (!user || user.length === 0) {
+                    return res.status(401).send({ msg: 'Unauthorized' });
+                } else {
+                    req.user = user;
+                    next();
+                }
             });
     } else {
         next();
@@ -53,7 +57,7 @@ app.use(function (req, res, next) {
 routes.load(app);
 
 app.listen(app.get('port'), function () {
-    console.log('Express server listening on port ' + app.get('port'));
+    console.log('XpensesCtrl server listening on port ' + app.get('port'));
 });
 
 module.exports = app;

@@ -3,6 +3,44 @@ var models = require('../models'),
 
 var EntryCtrl = {};
 
+EntryCtrl.getAll = function (req, res) {
+
+    models
+        .Entry
+        .findAll({
+            where: { userId: req.user.id },
+            include: [{ model: models.Category, as: 'category' }]
+        })
+        .then(function (entries) {
+            res.send(entries);
+        })
+        .catch(function (error) {
+            res.status(400).send(error);
+        });
+
+};
+
+EntryCtrl.remove = function (req, res) {
+
+    req.assert('id', 'Entry id cannot be blank').notEmpty();
+
+    var errors = req.validationErrors();
+
+    if (errors) {
+        return res.status(400).send(errors);
+    }
+
+    models.Entry
+        .destroy({ where: { id: req.params.id } })
+        .then(function () {
+            res.send();
+        })
+        .catch(function () {
+            res.status(400).send(error);
+        });
+
+};
+
 EntryCtrl.create = function (req, res) {
 
     req.assert('name', 'Entry name cannot be blank').notEmpty();
@@ -27,7 +65,8 @@ EntryCtrl.create = function (req, res) {
                 name: req.body.name,
                 value: req.body.value,
                 date: req.body.date,
-                categoryId: categoryInstance.id
+                categoryId: categoryInstance.id,
+                userId: req.user.id
             };
 
             return models.Entry
@@ -36,8 +75,8 @@ EntryCtrl.create = function (req, res) {
                     res.send({ msg: 'Entry created' });
                 })
         })
-        .catch(function () {
-            res.status(400).send(errors);
+        .catch(function (error) {
+            res.status(400).send(error);
         });
 
 };

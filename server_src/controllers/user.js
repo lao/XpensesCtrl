@@ -59,7 +59,7 @@ UserCtrl.login = function (req, res) {
 
     return models
         .User
-        .find({ username: req.body.username })
+        .find({ where: { username: req.body.username } })
         .then(function (user) {
             if (!user) {
                 return res.status(401).send({ msg: loginErrorMsg });

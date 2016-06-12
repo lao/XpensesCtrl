@@ -5,7 +5,9 @@
     angular
         .module('XpensesCtrlApp', ['ngMaterial', 'ngRoute', 'satellizer'])
         //Annotations will be added by gulp-ng-annotate
-        .config(function ($routeProvider, $locationProvider, $authProvider) {
+        .config(function ($routeProvider, $locationProvider, $authProvider, $httpProvider) {
+
+            $httpProvider.interceptors.push('ApiInterceptor');
 
             $routeProvider
                 .when('/', {
@@ -46,10 +48,21 @@
             }
 
         })
-        .run(function ($rootScope, $window) {
+        .run(function ($rootScope, $window, $auth, $location, $mdToast, EVENTS) {
+
+            $rootScope.$on(EVENTS.UNAUTHORIZED_REQUEST, function () {
+                $auth.logout();
+                $location.path('/');
+                _showErrorToast('User not logged');
+            });
 
             if ($window.localStorage.user) {
                 $rootScope.currentUser = JSON.parse($window.localStorage.user);
+            }
+
+            function _showErrorToast(text) {
+                text = text || 'Unknow Error';
+                $mdToast.show($mdToast.simple().textContent(text));
             }
 
         });
