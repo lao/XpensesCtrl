@@ -48,12 +48,11 @@
             }
 
         })
-        .run(function ($rootScope, $window, $auth, $location, $mdToast, EVENTS) {
+        .run(function ($rootScope, $window, $mdToast, EVENTS, AuthenticationService) {
 
             $rootScope.$on(EVENTS.UNAUTHORIZED_REQUEST, function () {
                 //TODO: avoid running more than once
-                $auth.logout();
-                $location.path('/');
+                AuthenticationService.logout();
                 _showErrorToast('User not logged');
             });
 

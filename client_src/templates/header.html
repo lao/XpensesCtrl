@@ -1,5 +1,15 @@
-<header id="app-header" class="md-whiteframe-4dp">
+<header id="app-header" class="md-whiteframe-4dp"
+        ng-controller="HeaderController as headerCtrl"
+        layout="row"
+        layout-align="space-between center">
 
-    XpensesCtrl - Control your expenses
+    <div>XpensesCtrl - Control your expenses</div>
+
+    <md-button ng-show="currentUser" ng-click="headerCtrl.logout()">
+        <md-icon md-svg-src="img/logout.svg"></md-icon>
+        <md-tooltip>
+            logout
+        </md-tooltip>
+    </md-button>
 
 </header>

@@ -8,7 +8,13 @@ $light-gray-color: #F3F3F3;
   line-height: 60px;
   color: white;
   font-size: 21px;
-  padding: 0 20px;
+  padding: 0 10px;
+  .md-button {
+    min-width: 40px;
+    md-icon {
+      color: white;
+    }
+  }
 }
 
 .card-container {
@@ -50,7 +56,7 @@ $light-gray-color: #F3F3F3;
       }
       .content {
         padding: 20px;
-        background-color: #E6E6E6;
+        background-color: $light-gray-color;
         .md-button {
           text-transform: none;
         }
@@ -116,6 +122,14 @@ $light-gray-color: #F3F3F3;
   }
   &.negative-value {
     background-color: #FFC8C8;
+  }
+
+  .name {
+    font-weight: 600;
+  }
+  .category {
+    font-weight: 200;
+    font-style: italic;
   }
 
   .md-button {
