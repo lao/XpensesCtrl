@@ -4,8 +4,12 @@ var Sequelize = require('sequelize'),
     fs = require('fs'),
     path = require('path');
 
+var DATABASE_NAME = 'xpensesdb';
+var DATABASE_USER = 'xadmin';
+var DATABASE_USER_PASSWORD = '246temp_password135';
+
 //Initializing database connection
-var sequelize = new Sequelize('xpensesdb', 'xadmin', '246temp_password135', {
+var sequelize = new Sequelize(DATABASE_NAME, DATABASE_USER, DATABASE_USER_PASSWORD, {
     host: 'localhost',
     dialect: 'postgresql',
     maxConcurrentQueries: 50,
