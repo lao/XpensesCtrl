@@ -1,19 +1,45 @@
 # XpensesCtrl
 
-- ROADMAP:
+----
 
-1 - Model the database - ok
-2 - Create models - ok
-3 - Create routes structure - ok
-4 - Create first route: signup - ok
-4 - Create page for signup - ok
-5 - FS - login - ok
-6 - FS - entries list - ok
-7 - FS - CRUD entries with categories (uncategorize entry if category is removed) - partially done (edit missing)
-8 - FS - Graphs and Reports
-    - Weekly based reports - per user and per family
+Simple expenses control app made using:
 
-9 - create service that gets validation and known errors and shows on the toast message
-10 - Create Async validation for username
-11 - Check similar family names and show user similar family names to avoid creation of several family names or misstyping
-12 - Category selection on entry creation
+- Node.js
+- Angular.js (1.5)
+- Angular Material
+- Express
+- Sequelize (ORM - http://sequelizejs.com/)
+- Postgresql
+- Satellizer and node-jsonwebtoken (authentication)
+
+----
+
+Database configuration hardcoded on file /server_src/models/index.js - (*)
+
+BUILD:
+```shell
+npm install
+npm build
+npm start
+```
+
+---
+
+# ROADMAP:
+
+- Model the database [DONE]
+- Create models [DONE]
+- Create routes structure [DONE]
+- Create first route: signup [DONE]
+- Create page for signup [DONE]
+- FS - login [DONE]
+- FS - entries list [DONE]
+- FS - CRUD entries with categories (uncategorize entry if category is removed) [partially DONE (edit missing)]
+- FS - Graphs and Reports  [DONE]
+    - Weekly based reports - per user and per family  [DONE]
+
+- create service that gets validation and known errors and shows on the toast message [TODO]
+- Create Async validation for username [TODO]
+- Check similar family names and show user similar family names to avoid repeated family names or misstyping [TODO]
+- Category selection on entry creation [TODO]
+- (*) Use dotenv for database and web server configurations [TODO]
