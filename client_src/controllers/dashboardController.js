@@ -19,7 +19,9 @@
         self.openEntryModal = function ($event) {
             $mdDialog.show({
                 targetEvent: $event,
-                templateUrl: 'templates/entry-creation.html'
+                templateUrl: 'templates/entry-creation.html',
+                controller: 'EntryCreationController',
+                controllerAs: 'entryCtrl'
             });
         };
 

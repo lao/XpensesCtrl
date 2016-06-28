@@ -4,7 +4,7 @@ var argv = require('yargs').argv;
 var concat = require('gulp-concat');
 var ngAnnotate = require('gulp-ng-annotate');
 var templateCache = require('gulp-angular-templatecache');
-var autoprefixer = require('gulp-autoprefixer');
+// var autoprefixer = require('gulp-autoprefixer');
 var sass = require('gulp-sass');
 var csso = require('gulp-csso');
 var buffer = require('vinyl-buffer');
@@ -16,7 +16,7 @@ gulp.task('sass', function() {
         .src('client_src/css/main.scss')
         .pipe(plumber())
         .pipe(sass())
-        .pipe(autoprefixer())
+        // .pipe(autoprefixer())
         .pipe(gulpif(argv.production, csso()))
         .pipe(gulp.dest('public/css'));
 });

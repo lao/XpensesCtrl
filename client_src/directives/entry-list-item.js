@@ -15,6 +15,19 @@
             templateUrl: 'templates/entry-list-item.html',
             link: function (scope) {
 
+                scope.edit = function ($event) {
+                    console.log(scope.entry);
+                    $mdDialog.show({
+                        targetEvent: $event,
+                        templateUrl: 'templates/entry-creation.html',
+                        locals: {
+                            entry: scope.entry
+                        },
+                        controller: 'EntryCreationController',
+                        controllerAs: 'entryCtrl'
+                    });
+                };
+
                 scope.delete = function () {
 
                     var removeConfirmationDialog = $mdDialog.confirm()

@@ -21,6 +21,7 @@
             },
             entry: {
                 create: entryCreate,
+                update: entryUpdate,
                 remove: entryRemove,
                 getAll: entryGetAll,
                 userWeekSum: entryUserWeekSum,
@@ -33,7 +34,7 @@
          *
          * @returns {Promise}
          */
-        function entryFamilyWeekSum(){
+        function entryFamilyWeekSum() {
             return $http({
                 method: 'GET',
                 url: BASE_URL + '/entry/sum/family/week'
@@ -45,7 +46,7 @@
          *
          * @returns {Promise}
          */
-        function entryUserWeekSum(){
+        function entryUserWeekSum() {
             return $http({
                 method: 'GET',
                 url: BASE_URL + '/entry/sum/user/week'
@@ -125,6 +126,21 @@
             return $http({
                 method: 'POST',
                 url: BASE_URL + '/user',
+                data: data
+            });
+        }
+
+        /**
+         * Update entry by id
+         *
+         * @param id
+         * @param data
+         * @returns {Promise}
+         */
+        function entryUpdate(id, data) {
+            return $http({
+                method: 'PUT',
+                url: BASE_URL + '/entry/' + id,
                 data: data
             });
         }

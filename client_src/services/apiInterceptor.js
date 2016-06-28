@@ -8,7 +8,7 @@
     function ApiInterceptor($q, $rootScope, $log, EVENTS) {
 
         return {
-            responseError: function (response) {
+            responseError: function (response, error) {
 
                 //Unauthorized
                 if (response.status === 401) {

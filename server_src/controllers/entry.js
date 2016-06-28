@@ -41,6 +41,55 @@ EntryCtrl.remove = function (req, res) {
 
 };
 
+EntryCtrl.update = function (req, res) {
+
+    req.assert('id', 'Entry id cannot be blank').notEmpty();
+
+    var errors = req.validationErrors();
+
+    if (errors) {
+        return res.status(400).send(errors);
+    }
+
+    var entryToUpdate;
+
+    models.Entry
+        .find({ where: { id: req.params.id } })
+        .then(function (foundEntry) {
+
+            if (!foundEntry) {
+                res.status(401).send('not found');
+            }
+
+            entryToUpdate = foundEntry;
+
+            return models.Category
+                .findOrCreate({ where: { name: req.body.categoryname, userId: req.user.id } });
+
+        })
+        .then(function (categoryInstance) {
+
+            categoryInstance = categoryInstance[0];
+
+            var entryData = {
+                name: req.body.name,
+                value: req.body.value,
+                date: req.body.date,
+                categoryId: categoryInstance.id,
+                userId: req.user.id
+            };
+
+            return entryToUpdate.update(entryData);
+        })
+        .then(function () {
+            res.send({ msg: 'Entry updated' });
+        })
+        .catch(function () {
+            res.status(400).send(error);
+        });
+
+};
+
 EntryCtrl.create = function (req, res) {
 
     req.assert('name', 'Entry name cannot be blank').notEmpty();
@@ -102,7 +151,6 @@ EntryCtrl.userWeekSum = function (req, res) {
 
 };
 
-
 EntryCtrl.familyWeekSum = function (req, res) {
 
     //NOTE: Postgres weeks starts on mondays, adding 1 day to now to correct the problem
@@ -115,7 +163,10 @@ EntryCtrl.familyWeekSum = function (req, res) {
 
     models
         .sequelize
-        .query(selectSqlStr, { type: models.sequelize.QueryTypes.SELECT, replacements: { familyId: req.user.familyId } })
+        .query(selectSqlStr, {
+            type: models.sequelize.QueryTypes.SELECT,
+            replacements: { familyId: req.user.familyId }
+        })
         .then(function (result) {
             res.send(result);
         })

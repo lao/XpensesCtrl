@@ -8,8 +8,13 @@
     </div>
     <div>
         <span>{{entry.value | currency}}</span>
+        <md-button ng-click="edit($event)">
+            <md-icon md-svg-src="img/edit.svg"></md-icon>
+            <md-tooltip>Edit entry: {{entry.name}}</md-tooltip>
+        </md-button>
         <md-button ng-click="delete($event)">
             <md-icon md-svg-src="img/delete.svg"></md-icon>
+            <md-tooltip>Remove entry: {{entry.name}}</md-tooltip>
         </md-button>
     </div>
 

@@ -21,7 +21,7 @@ function load(app) {
     app.get('/category', isAuthenticated, CategoryCtrl.getAll);
 
     //Put Methods
-    //app.put('/entry/:id', isAuthenticated, EntryCtrl.update); //TODO: this
+    app.put('/entry/:id', isAuthenticated, EntryCtrl.update);
 
     //Delete Methods
     app.delete('/entry/:id', isAuthenticated, EntryCtrl.remove);
